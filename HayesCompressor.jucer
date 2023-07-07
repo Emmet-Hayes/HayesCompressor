@@ -4,16 +4,19 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="iBp2h2" name="HayesCompressor">
     <GROUP id="{90861016-F3AA-FAE6-39AA-0A51185268BE}" name="Source">
+      <FILE id="Z7yOW0" name="DbSlider.h" compile="0" resource="0" file="Source/DbSlider.h"/>
+      <FILE id="KSB7YZ" name="LogMsSlider.h" compile="0" resource="0" file="Source/LogMsSlider.h"/>
       <FILE id="uBSA1o" name="HayesAudioProcessor.h" compile="0" resource="0"
             file="Source/HayesAudioProcessor.h"/>
-      <FILE id="LoDh3y" name="HayesAudioProcessorEditor.h" compile="0" resource="0"
-            file="Source/HayesAudioProcessorEditor.h"/>
       <FILE id="bZzmPK" name="HayesAudioProcessor.cpp" compile="1" resource="0"
             file="Source/HayesAudioProcessor.cpp"/>
+      <FILE id="LoDh3y" name="HayesAudioProcessorEditor.h" compile="0" resource="0"
+            file="Source/HayesAudioProcessorEditor.h"/>
       <FILE id="dxJIp1" name="HayesAudioProcessorEditor.cpp" compile="1"
             resource="0" file="Source/HayesAudioProcessorEditor.cpp"/>
       <FILE id="xE5ItG" name="Utilities.h" compile="0" resource="0" file="Source/Utilities.h"/>
     </GROUP>
+    <FILE id="bItEVP" name="bg_file.jpg" compile="0" resource="1" file="Images/bg_file.jpg"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
