@@ -3,81 +3,7 @@
 #include "Utilities.h"
 
 HayesAudioProcessor::HayesAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
-:   AudioProcessor (BusesProperties()
-   #if ! JucePlugin_IsMidiEffect
-    #if ! JucePlugin_IsSynth
-     .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
-    #endif
-     .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
-   #endif
-)
-,   apvts (*this, nullptr, "PARAMETERS", createParameterLayout())
-#endif
-{
-}
-
-HayesAudioProcessor::~HayesAudioProcessor()
-{
-}
-
-const juce::String HayesAudioProcessor::getName() const
-{
-    return JucePlugin_Name;
-}
-
-bool HayesAudioProcessor::acceptsMidi() const
-{
-   #if JucePlugin_WantsMidiInput
-    return true;
-   #else
-    return false;
-   #endif
-}
-
-bool HayesAudioProcessor::producesMidi() const
-{
-   #if JucePlugin_ProducesMidiOutput
-    return true;
-   #else
-    return false;
-   #endif
-}
-
-bool HayesAudioProcessor::isMidiEffect() const
-{
-   #if JucePlugin_IsMidiEffect
-    return true;
-   #else
-    return false;
-   #endif
-}
-
-double HayesAudioProcessor::getTailLengthSeconds() const
-{
-    return 0.0;
-}
-
-int HayesAudioProcessor::getNumPrograms()
-{
-    return 1;
-}
-
-int HayesAudioProcessor::getCurrentProgram()
-{
-    return 0;
-}
-
-void HayesAudioProcessor::setCurrentProgram (int /*index*/)
-{
-}
-
-const juce::String HayesAudioProcessor::getProgramName (int /*index*/ )
-{
-    return {};
-}
-
-void HayesAudioProcessor::changeProgramName (int /*index*/, const juce::String& /*newName*/)
+:   apvts (*this, nullptr, "PARAMETERS", createParameterLayout())
 {
 }
 
@@ -87,34 +13,6 @@ void HayesAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     compressor.prepare (spec);
 }
 
-void HayesAudioProcessor::releaseResources()
-{
-}
-
-#ifndef JucePlugin_PreferredChannelConfigurations
-bool HayesAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
-{
-  #if JucePlugin_IsMidiEffect
-    juce::ignoreUnused (layouts);
-    return true;
-  #else
-    // This is the place where you check if the layout is supported.
-    // In this template code we only support mono or stereo.
-    // Some plugin hosts, such as certain GarageBand versions, will only
-    // load plugins that support stereo bus layouts.
-    if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
-        return false;
-
-   #if ! JucePlugin_IsSynth
-    if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
-        return false;
-   #endif
-
-    return true;
-  #endif
-}
-#endif
 
 void HayesAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& /*midiMessages*/)
 {   
@@ -132,10 +30,6 @@ void HayesAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     compressor.process (juce::dsp::ProcessContextReplacing<float> (block));
 }
 
-bool HayesAudioProcessor::hasEditor() const
-{
-    return true;
-}
 
 juce::AudioProcessorEditor* HayesAudioProcessor::createEditor()
 {

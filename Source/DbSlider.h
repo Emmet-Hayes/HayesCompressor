@@ -16,4 +16,3 @@ public:
             return juce::String(value, 2) + " dB";
     }
 };
-
