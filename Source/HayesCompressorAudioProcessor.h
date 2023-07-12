@@ -1,13 +1,13 @@
 #pragma once
 #include <JuceHeader.h>
 
-class HayesAudioProcessor  : public juce::AudioProcessor
+class HayesCompressorAudioProcessor  : public juce::AudioProcessor
                             #if JucePlugin_Enable_ARA
                              , public juce::AudioProcessorARAExtension
                             #endif
 {
 public:
-    HayesAudioProcessor();
+    HayesCompressorAudioProcessor();
 
     void releaseResources() override {}
     const juce::String getName() const override { return JucePlugin_Name; }
@@ -32,6 +32,8 @@ public:
     juce::AudioProcessorValueTreeState apvts;
     juce::dsp::Compressor<double> compressor;
 
+    juce::Atomic<float> inputGain;
+    juce::Atomic<float> outputGain;
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HayesAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HayesCompressorAudioProcessor)
 };
