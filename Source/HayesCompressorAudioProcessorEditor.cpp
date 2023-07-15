@@ -1,82 +1,232 @@
+/*
+  ==============================================================================
+
+    This file was auto-generated!
+
+    It contains the basic framework code for a JUCE plugin editor.
+
+  ==============================================================================
+*/
+
 #include "HayesCompressorAudioProcessor.h"
 #include "HayesCompressorAudioProcessorEditor.h"
-#include "DbSlider.h"
-#include "LogMsSlider.h"
+#include "util/include/Constants.h"
 
-
+//==============================================================================
 HayesCompressorAudioProcessorEditor::HayesCompressorAudioProcessorEditor(HayesCompressorAudioProcessor& p)
-:   AudioProcessorEditor (&p)
-,   processor (p)
+:   AudioProcessorEditor(&p)
+,   processor(p)
+,   inGainLSlider(this), makeupGainLSlider(this), treshLSlider(this), ratioLSlider(this), kneeLSlider(this)
+,   attackLSlider(this), releaseLSlider(this), mixLSlider(this)
+,   powerButton("powerButton", juce::DrawableButton::ButtonStyle::ImageOnButtonBackground)
 {
-    using Attachment = juce::AudioProcessorValueTreeState::SliderAttachment;
-    const char* paramNames[SLIDER_COUNT] = { "threshold", "ratio", "inputgain", "attack", "release",  "outputgain" };
-    const char* labelNames[SLIDER_COUNT] = { "Threshold", "Ratio", "Input Gain", "Attack", "Release", "Output Gain" };
-    
-    for (int i = 0; i < SLIDER_COUNT; ++i)
-    {
-        labels[i].setText(labelNames[i], juce::dontSendNotification);
-        labels[i].setJustificationType(juce::Justification::centred);
-        labels[i].setLookAndFeel(&customLookAndFeel);
-        labels[i].setFont(juce::Font("Lucida Console", 11.f, juce::Font::bold));
-        addAndMakeVisible(labels[i]);
-        if (i == 0 || i == 2 || i == 5)
-            sliders[i] = std::make_unique<DbSlider>();
-        else if (i == 1) // ratio is linear (no unit)
-            sliders[i] = std::make_unique<juce::Slider>();
-        else // attack and release are logarithmic
-            sliders[i] = std::make_unique<LogMsSlider>();
-        sliders[i]->setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-        sliders[i]->setTextBoxStyle(juce::Slider::TextBoxBelow, false, 70, 20);
-        sliders[i]->setNumDecimalPlacesToDisplay(2);
-        sliders[i]->setLookAndFeel(&customLookAndFeel);
-        sliders[i]->addListener(this);
-        addAndMakeVisible(sliders[i].get());
-        sliderAttachments[i] = std::make_unique<Attachment>(processor.apvts, paramNames[i], *sliders[i]);
-    }
-
+    setLookAndFeel(&customLookAndFeel);
+    initWidgets();
+    setSize(400, 300);
+    startTimerHz(60);
     image = juce::ImageCache::getFromMemory(BinaryData::bg_file_jpg, BinaryData::bg_file_jpgSize);
-    setSize (400, 300);
 }
 
 HayesCompressorAudioProcessorEditor::~HayesCompressorAudioProcessorEditor()
 {
-    for (int i = 0; i < SLIDER_COUNT; ++i)
-        sliders[i]->removeListener(this);
+    setLookAndFeel(nullptr);
 }
 
-void HayesCompressorAudioProcessorEditor::paint (juce::Graphics& g)
+void HayesCompressorAudioProcessorEditor::paint(juce::Graphics& g)
 {
-    g.drawImage(image, 0, 0, getWidth(), getHeight(), 0, 256, 800, 600); 
+    g.drawImage(image, 0, 0, getWidth(), getHeight(), 0, 256, 800, 600);
 }
 
 void HayesCompressorAudioProcessorEditor::resized()
 {
-    labels[0].setBounds(10, 0, 100, 20);
-    sliders[0]->setBounds(0, 25, 120, 120);
-    labels[1].setBounds(150, 0, 100, 20);
-    sliders[1]->setBounds(140, 25, 120, 120);
-    labels[2].setBounds(290, 0, 100, 20);
-    sliders[2]->setBounds(280, 25, 120, 120);
-    labels[3].setBounds(10, 150, 100, 20);
-    sliders[3]->setBounds(0, 175, 120, 120);
-    labels[4].setBounds(150, 150, 100, 20);
-    sliders[4]->setBounds(143, 175, 120, 120);
-    labels[5].setBounds(290, 150, 100, 20);
-    sliders[5]->setBounds(280, 175, 120, 120);
+    auto area = getLocalBounds().reduced(Constants::Margins::big);
+
+    const auto headerHeight = area.getHeight() / 10;
+    const auto btnAreaWidth = area.getWidth() / 5;
+    const auto btnBotHeight = area.getHeight() / 3;
+
+    auto header = area.removeFromTop(headerHeight).reduced(Constants::Margins::small);
+    auto lBtnArea = area.removeFromLeft(btnAreaWidth).reduced(Constants::Margins::small);
+    auto rBtnArea = area.removeFromRight(btnAreaWidth).reduced(Constants::Margins::small);
+    auto botBtnArea = area.removeFromBottom(btnBotHeight).reduced(Constants::Margins::medium);
+
+    const juce::FlexItem::Margin knobMargin = juce::FlexItem::Margin(Constants::Margins::medium);
+    const juce::FlexItem::Margin knobMarginSmall = juce::FlexItem::Margin(Constants::Margins::medium);
+    const juce::FlexItem::Margin buttonMargin = juce::FlexItem::Margin(Constants::Margins::small, Constants::Margins::big,
+        Constants::Margins::small,
+        Constants::Margins::big);
+
+    juce::FlexBox headerBox;
+    headerBox.flexWrap = juce::FlexBox::Wrap::noWrap;
+    headerBox.flexDirection = juce::FlexBox::Direction::row;
+    headerBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
+    headerBox.items.add(juce::FlexItem(lahButton).withFlex(2).withMargin(buttonMargin));
+    headerBox.items.add(juce::FlexItem(autoAttackButton).withFlex(2).withMargin(buttonMargin));
+    headerBox.items.add(juce::FlexItem(autoReleaseButton).withFlex(2).withMargin(buttonMargin));
+    headerBox.items.add(juce::FlexItem(autoMakeupButton).withFlex(2).withMargin(buttonMargin));
+    headerBox.items.add(juce::FlexItem(powerButton).withFlex(1).withMargin(buttonMargin));
+    headerBox.performLayout(header.toFloat());
+
+    juce::FlexBox leftBtnBox;
+    leftBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
+    leftBtnBox.flexDirection = juce::FlexBox::Direction::column;
+    leftBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
+    leftBtnBox.items.add(juce::FlexItem(attackLSlider).withFlex(1).withMargin(knobMarginSmall));
+    leftBtnBox.items.add(juce::FlexItem(releaseLSlider).withFlex(1).withMargin(knobMarginSmall));
+    leftBtnBox.items.add(juce::FlexItem(inGainLSlider).withFlex(1).withMargin(knobMarginSmall));
+    leftBtnBox.performLayout(lBtnArea.toFloat());
+
+    juce::FlexBox rightBtnBox;
+    rightBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
+    rightBtnBox.flexDirection = juce::FlexBox::Direction::column;
+    rightBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
+    rightBtnBox.items.add(juce::FlexItem(kneeLSlider).withFlex(1).withMargin(knobMarginSmall));
+    rightBtnBox.items.add(juce::FlexItem(ratioLSlider).withFlex(1).withMargin(knobMarginSmall));
+    rightBtnBox.items.add(juce::FlexItem(mixLSlider).withFlex(1).withMargin(knobMarginSmall));
+    rightBtnBox.performLayout(rBtnArea.toFloat());
+
+    juce::FlexBox botBtnBox;
+    botBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
+    botBtnBox.flexDirection = juce::FlexBox::Direction::row;
+    botBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
+    botBtnBox.items.add(juce::FlexItem(treshLSlider).withFlex(1).withMargin(knobMargin));
+    botBtnBox.items.add(juce::FlexItem(makeupGainLSlider).withFlex(1).withMargin(knobMargin));
+    botBtnBox.performLayout(botBtnArea.toFloat());
+
+    juce::FlexBox meterBox;
+    meterBox.flexWrap = juce::FlexBox::Wrap::noWrap;
+    meterBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
+    meterBox.items.add(juce::FlexItem(meter).withFlex(1).withMargin(Constants::Margins::big));
+    meterBox.performLayout(area.toFloat());
 }
 
-void HayesCompressorAudioProcessorEditor::sliderValueChanged (juce::Slider* slider)
+
+void HayesCompressorAudioProcessorEditor::buttonClicked(juce::Button* b)
 {
-    if (slider == sliders[0].get())
-        processor.compressor.setThreshold(slider->getValue());
-    if (slider == sliders[1].get())
-        processor.compressor.setRatio(slider->getValue());
-    if (slider == sliders[2].get())
-        processor.inputGain = slider->getValue();
-    if (slider == sliders[3].get())
-        processor.compressor.setAttack(slider->getValue());
-    if (slider == sliders[4].get())
-        processor.compressor.setRelease(slider->getValue());
-    if (slider == sliders[5].get())
-        processor.outputGain = slider->getValue();
+    if (b == &autoAttackButton)attackLSlider.setEnabled(!attackLSlider.isEnabled());
+    if (b == &autoReleaseButton)releaseLSlider.setEnabled(!releaseLSlider.isEnabled());
+    if (b == &powerButton) setGUIState(powerButton.getToggleState());
+}
+
+void HayesCompressorAudioProcessorEditor::timerCallback()
+{
+    int m = meter.getMode();
+    switch (m)
+    {
+    case Meter::Mode::IN:
+        meter.update(processor.inputGain.get());
+        break;
+    case Meter::Mode::OUT:
+        meter.update(processor.outputGain.get());
+        break;
+    case Meter::Mode::GR:
+        meter.update(processor.gainReduction.get());
+        break;
+    default:
+        break;
+    }
+}
+
+void HayesCompressorAudioProcessorEditor::initWidgets()
+{
+    addAndMakeVisible(inGainLSlider);
+    inGainLSlider.reset(processor.apvts, "inputgain");
+    inGainLSlider.setLabelText("Input");
+
+    addAndMakeVisible(makeupGainLSlider);
+    makeupGainLSlider.reset(processor.apvts, "makeup");
+    makeupGainLSlider.setLabelText("Makeup");
+
+    addAndMakeVisible(treshLSlider);
+    treshLSlider.reset(processor.apvts, "threshold");
+    treshLSlider.setLabelText("Threshold");
+
+    addAndMakeVisible(ratioLSlider);
+    ratioLSlider.reset(processor.apvts, "ratio");
+    ratioLSlider.setLabelText("Ratio");
+
+    addAndMakeVisible(kneeLSlider);
+    kneeLSlider.reset(processor.apvts, "knee");
+    kneeLSlider.setLabelText("Knee");
+
+    addAndMakeVisible(attackLSlider);
+    attackLSlider.reset(processor.apvts, "attack");
+    attackLSlider.setLabelText("Attack");
+
+    addAndMakeVisible(releaseLSlider);
+    releaseLSlider.reset(processor.apvts, "release");
+    releaseLSlider.setLabelText("Release");
+
+    addAndMakeVisible(mixLSlider);
+    mixLSlider.reset(processor.apvts, "mix");
+    mixLSlider.setLabelText("Mix");
+
+    addAndMakeVisible(lahButton);
+    lahButton.setButtonText("LookAhead");
+    lahButton.setClickingTogglesState(true);
+    lahButton.setToggleState(false, juce::dontSendNotification);
+    lahAttachment.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "lookahead", lahButton));
+
+    addAndMakeVisible(autoAttackButton);
+    autoAttackButton.setButtonText("AutoAttack");
+    autoAttackButton.setClickingTogglesState(true);
+    autoAttackButton.setToggleState(false, juce::dontSendNotification);
+    autoAttackButton.addListener(this);
+    autoAttackAttachment.reset(
+        new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "autoattack", autoAttackButton));
+
+    addAndMakeVisible(autoReleaseButton);
+    autoReleaseButton.setButtonText("AutoRelease");
+    autoReleaseButton.setClickingTogglesState(true);
+    autoReleaseButton.setToggleState(false, juce::dontSendNotification);
+    autoReleaseButton.addListener(this);
+    autoReleaseAttachment.reset(
+        new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "autorelease", autoReleaseButton));
+
+    addAndMakeVisible(autoMakeupButton);
+    autoMakeupButton.setButtonText("Makeup");
+    autoMakeupButton.setClickingTogglesState(true);
+    autoMakeupButton.setToggleState(false, juce::dontSendNotification);
+    autoMakeupButton.addListener(this);
+    autoMakeupAttachment.reset(
+        new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "automakeup", autoMakeupButton));
+
+    addAndMakeVisible(powerButton);
+    powerButton.setImages(
+        juce::Drawable::createFromImageData(BinaryData::power_white_svg, BinaryData::power_white_svgSize).get());
+    powerButton.setClickingTogglesState(true);
+    powerButton.setToggleState(true, juce::dontSendNotification);
+    powerButton.addListener(this);
+    powerAttachment.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "power", powerButton));
+
+    addAndMakeVisible(meter);
+    meter.setMode(Meter::Mode::GR);
+}
+
+void HayesCompressorAudioProcessorEditor::setGUIState(bool powerState)
+{
+    inGainLSlider.setEnabled(powerState);
+    treshLSlider.setEnabled(powerState);
+    ratioLSlider.setEnabled(powerState);
+    kneeLSlider.setEnabled(powerState);
+    makeupGainLSlider.setEnabled(powerState);
+    mixLSlider.setEnabled(powerState);
+    meter.setEnabled(powerState);
+    meter.setGUIEnabled(powerState);
+    lahButton.setEnabled(powerState);
+    autoMakeupButton.setEnabled(powerState);
+
+    autoAttackButton.setEnabled(powerState);
+    autoReleaseButton.setEnabled(powerState);
+
+    if (!powerState)
+    {
+        attackLSlider.setEnabled(powerState);
+        releaseLSlider.setEnabled(powerState);
+    }
+    else
+    {
+        attackLSlider.setEnabled(!autoAttackButton.getToggleState());
+        releaseLSlider.setEnabled(!autoReleaseButton.getToggleState());
+    }
 }

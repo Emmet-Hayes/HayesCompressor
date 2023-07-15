@@ -6,6 +6,7 @@ CustomLookAndFeel::CustomLookAndFeel()
     setColour(juce::ComboBox::textColourId, juce::Colours::white);
     setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
     setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::white);
+    setColour(juce::TextButton::buttonOnColourId, juce::Colours::hotpink);
 }
 
 void CustomLookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, int height, float sliderPos, 
@@ -58,6 +59,35 @@ juce::Font CustomLookAndFeel::getCommonMenuFont(float s)
 {
     return juce::Font("Lucida Console", 10.f * s, juce::Font::bold);
 }
+
+void CustomLookAndFeel::drawPopupMenuItem(juce::Graphics& g, const juce::Rectangle<int>& area,
+    bool isSeparator, bool isActive, bool isHighlighted,
+    bool isTicked, bool hasSubMenu,
+    const juce::String& text, const juce::String& shortcutKeyText,
+    const juce::Drawable* icon, const juce::Colour* const textColourToUse)
+{
+    if (isSeparator)
+    {
+        // Your drawing code for separators
+    }
+    else
+    {
+        juce::Colour textColour;
+
+        if (textColourToUse != nullptr)
+            textColour = *textColourToUse;
+        else
+            textColour = isHighlighted ? juce::Colours::black : juce::Colours::white;
+
+        g.setColour(isHighlighted ? juce::Colours::darkmagenta : juce::Colours::black);
+        g.fillRect(area);
+
+        g.setColour(textColour);
+        g.setFont(getCommonMenuFont(scale));
+        g.drawText(text, area, juce::Justification::centred);
+    }
+}
+
 
 void CustomLookAndFeel::drawPopupMenuBackground(juce::Graphics& g, int width, int height) 
 {

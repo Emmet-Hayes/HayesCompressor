@@ -1,10 +1,10 @@
 #pragma once
 #include <JuceHeader.h>
+#include "dsp/include/Compressor.h"
+#include "dsp/include/LevelEnvelopeFollower.h"
 
 class HayesCompressorAudioProcessor  : public juce::AudioProcessor
-                            #if JucePlugin_Enable_ARA
-                             , public juce::AudioProcessorARAExtension
-                            #endif
+                                     , public juce::AudioProcessorValueTreeState::Listener
 {
 public:
     HayesCompressorAudioProcessor();
@@ -27,13 +27,17 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    void parameterChanged(const juce::String& parameterID, float newValue) override;
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
     juce::AudioProcessorValueTreeState apvts;
-    juce::dsp::Compressor<double> compressor;
 
+    juce::Atomic<float> gainReduction;
     juce::Atomic<float> inputGain;
     juce::Atomic<float> outputGain;
 private:
+    Compressor compressor;
+    LevelEnvelopeFollower inLevelFollower;
+    LevelEnvelopeFollower outLevelFollower;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HayesCompressorAudioProcessor)
 };
