@@ -26,7 +26,7 @@ public:
 
 private:
     void loadPreset(const std::string& name);
-    void loadDefaultPresets();
+    bool loadDefaultPresets();
     bool savePreset(const std::string& name);
 
     int getNextPresetIndex();

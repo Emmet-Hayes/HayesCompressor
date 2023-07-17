@@ -19,7 +19,11 @@ PresetBar::PresetBar(HayesCompressorAudioProcessor& p)
     presetBox.onChange = [this] { presetChanged(); };
 
     // fetch the standard presets from the user's application data directory
-    loadDefaultPresets();
+    if (!loadDefaultPresets())
+    {
+        // otherwise just initialize a default
+        addPreset("Default");
+    }
 }
 
 void PresetBar::paint(juce::Graphics& g)
@@ -42,22 +46,28 @@ void PresetBar::buttonClicked(juce::Button* b)
 {
     if (b == &nextButton)
     {
-        auto nextPresetName = getNextPresetName();
-        auto nextPresetIndex = getNextPresetIndex();
-        if (!nextPresetName.empty())
+        if (presets.size() > 0)
         {
-            loadPreset(nextPresetName);
-            presetBox.setSelectedId(presetBox.getItemId(nextPresetIndex), juce::dontSendNotification);
+            auto nextPresetName = getNextPresetName();
+            auto nextPresetIndex = getNextPresetIndex();
+            if (!nextPresetName.empty())
+            {
+                loadPreset(nextPresetName);
+                presetBox.setSelectedId(presetBox.getItemId(nextPresetIndex), juce::dontSendNotification);
+            }
         }
     }
     else if (b == &prevButton)
     {
-        auto prevPresetName = getPrevPresetName();
-        auto prevPresetIndex = getPrevPresetIndex();
-        if (!prevPresetName.empty())
+        if (presets.size() > 0)
         {
-            loadPreset(prevPresetName);
-            presetBox.setSelectedId(presetBox.getItemId(prevPresetIndex), juce::dontSendNotification);
+            auto prevPresetName = getPrevPresetName();
+            auto prevPresetIndex = getPrevPresetIndex();
+            if (!prevPresetName.empty())
+            {
+                loadPreset(prevPresetName);
+                presetBox.setSelectedId(presetBox.getItemId(prevPresetIndex), juce::dontSendNotification);
+            }
         }
     }
     else if (b == &addPresetButton)
@@ -171,7 +181,7 @@ void PresetBar::loadPreset(const std::string& name)
     }
 }
 
-void PresetBar::loadDefaultPresets()
+bool PresetBar::loadDefaultPresets()
 {
     // this goes in your constructor, after setting up the presetBox
     // specify the path to your default presets folder
@@ -207,7 +217,10 @@ void PresetBar::loadDefaultPresets()
             }
         }
         presetBox.setSelectedItemIndex(0);
+        return true;
     }
+    
+    return false;
 
 }
 
@@ -245,7 +258,7 @@ int PresetBar::getNextPresetIndex()
 
 int PresetBar::getPrevPresetIndex()
 {
-    return ((int)currentPresetIndex + 1) % presets.size();
+    return (currentPresetIndex + presets.size() - 1) % presets.size();
 }
 
 std::string PresetBar::getNextPresetName()
