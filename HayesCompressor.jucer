@@ -2,7 +2,8 @@
 
 <JUCERPROJECT id="QJYSWj" name="HayesCompressor" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              companyName="EmmetSoft" pluginFormats="buildAU,buildLV2,buildStandalone,buildVST3">
+              companyName="EmmetSoft" pluginFormats="buildAU,buildLV2,buildStandalone,buildVST3"
+              defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="iBp2h2" name="HayesCompressor">
     <GROUP id="{6FED16B8-CB25-1D46-527C-600F31F129EF}" name="Drawables">
       <FILE id="HVCiFF" name="power_white.svg" compile="0" resource="1" file="Drawables/power_white.svg"/>
@@ -67,6 +68,12 @@
           <FILE id="xQNqFS" name="SIMDMath.h" compile="0" resource="0" file="Source/util/include/SIMDMath.h"/>
         </GROUP>
       </GROUP>
+      <FILE id="UEG2JX" name="PresetComboBox.cpp" compile="1" resource="0"
+            file="Source/PresetComboBox.cpp"/>
+      <FILE id="lUt4u2" name="PresetComboBox.h" compile="0" resource="0"
+            file="Source/PresetComboBox.h"/>
+      <FILE id="rsFkNU" name="PresetBar.cpp" compile="1" resource="0" file="Source/PresetBar.cpp"/>
+      <FILE id="fE1Y0Y" name="PresetBar.h" compile="0" resource="0" file="Source/PresetBar.h"/>
       <FILE id="K0JDw3" name="CompressorDisplay.h" compile="0" resource="0"
             file="Source/CompressorDisplay.h"/>
       <FILE id="XNohd2" name="CustomLookAndFeel.cpp" compile="1" resource="0"

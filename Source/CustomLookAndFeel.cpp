@@ -66,6 +66,8 @@ void CustomLookAndFeel::drawPopupMenuItem(juce::Graphics& g, const juce::Rectang
     const juce::String& text, const juce::String& shortcutKeyText,
     const juce::Drawable* icon, const juce::Colour* const textColourToUse)
 {
+    juce::Colour c(30, 8, 33);
+    g.setColour(c);
     if (isSeparator)
     {
         // Your drawing code for separators

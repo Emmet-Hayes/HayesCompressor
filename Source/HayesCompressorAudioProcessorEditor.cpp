@@ -16,6 +16,7 @@
 HayesCompressorAudioProcessorEditor::HayesCompressorAudioProcessorEditor(HayesCompressorAudioProcessor& p)
 :   AudioProcessorEditor(&p)
 ,   processor(p)
+,   presetBar(p)
 ,   inGainLSlider(this), makeupGainLSlider(this), treshLSlider(this), ratioLSlider(this), kneeLSlider(this)
 ,   attackLSlider(this), releaseLSlider(this), mixLSlider(this)
 ,   powerButton("powerButton", juce::DrawableButton::ButtonStyle::ImageOnButtonBackground)
@@ -40,8 +41,11 @@ void HayesCompressorAudioProcessorEditor::paint(juce::Graphics& g)
 void HayesCompressorAudioProcessorEditor::resized()
 {
     auto area = getLocalBounds().reduced(Constants::Margins::big);
+    
+    auto presetBarHeight = 15;
+    presetBar.setBounds(area.removeFromTop(presetBarHeight));
 
-    const auto headerHeight = area.getHeight() / 10;
+    const auto headerHeight = presetBarHeight + 10;
     const auto btnAreaWidth = area.getWidth() / 5;
     const auto btnBotHeight = area.getHeight() / 3;
 
@@ -201,6 +205,8 @@ void HayesCompressorAudioProcessorEditor::initWidgets()
 
     addAndMakeVisible(meter);
     meter.setMode(Meter::Mode::GR);
+    
+    addAndMakeVisible(presetBar);
 }
 
 void HayesCompressorAudioProcessorEditor::setGUIState(bool powerState)

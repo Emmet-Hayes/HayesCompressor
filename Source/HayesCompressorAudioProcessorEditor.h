@@ -4,6 +4,7 @@
 #include "gui/include/LabeledSlider.h"
 #include "gui/include/Meter.h"
 #include "CustomLookAndFeel.h"
+#include "PresetBar.h"
 
 class HayesCompressorAudioProcessorEditor : public juce::AudioProcessorEditor, public juce::Button::Listener, juce::Timer
 {
@@ -27,6 +28,7 @@ private:
     juce::Image image;
 
     //Widgets
+    PresetBar presetBar;
     MeterBackground meterbg;
     Meter meter;
 

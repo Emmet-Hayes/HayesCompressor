@@ -36,6 +36,8 @@ public:
     juce::Atomic<float> inputGain;
     juce::Atomic<float> outputGain;
 private:
+
+
     Compressor compressor;
     LevelEnvelopeFollower inLevelFollower;
     LevelEnvelopeFollower outLevelFollower;
