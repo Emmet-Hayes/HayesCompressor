@@ -14,7 +14,7 @@
 
 //==============================================================================
 HayesCompressorAudioProcessorEditor::HayesCompressorAudioProcessorEditor(HayesCompressorAudioProcessor& p)
-:   AudioProcessorEditor(&p)
+:   BaseAudioProcessorEditor(p)
 ,   processor(p)
 ,   presetBar(p)
 ,   inGainLSlider(this), makeupGainLSlider(this), treshLSlider(this), ratioLSlider(this), kneeLSlider(this)

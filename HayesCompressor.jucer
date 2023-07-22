@@ -5,6 +5,7 @@
               companyName="EmmetSoft" pluginFormats="buildAU,buildLV2,buildStandalone,buildVST3"
               defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="iBp2h2" name="HayesCompressor">
+    <GROUP id="{B06D15B7-C597-EC07-A11E-5B8F1A7F0079}" name="New Group"/>
     <GROUP id="{6FED16B8-CB25-1D46-527C-600F31F129EF}" name="Drawables">
       <FILE id="HVCiFF" name="power_white.svg" compile="0" resource="1" file="Drawables/power_white.svg"/>
     </GROUP>
@@ -18,6 +19,30 @@
             file="Fonts/Roboto-Regular.ttf"/>
     </GROUP>
     <GROUP id="{90861016-F3AA-FAE6-39AA-0A51185268BE}" name="Source">
+      <GROUP id="{8BF919D6-15EB-48A0-9DF2-B47ACF3B361F}" name="Common">
+        <FILE id="CXqtFY" name="BaseAudioProcessor.cpp" compile="1" resource="0"
+              file="../Common/BaseAudioProcessor.cpp"/>
+        <FILE id="IkjXxr" name="BaseAudioProcessor.h" compile="0" resource="0"
+              file="../Common/BaseAudioProcessor.h"/>
+        <FILE id="GBBl38" name="BaseAudioProcessorEditor.cpp" compile="1" resource="0"
+              file="../Common/BaseAudioProcessorEditor.cpp"/>
+        <FILE id="mg0H58" name="BaseAudioProcessorEditor.h" compile="0" resource="0"
+              file="../Common/BaseAudioProcessorEditor.h"/>
+        <FILE id="P2H8e0" name="CentredLabel.h" compile="0" resource="0" file="../Common/CentredLabel.h"/>
+        <FILE id="Vgdiui" name="CustomLookAndFeel.cpp" compile="1" resource="0"
+              file="../Common/CustomLookAndFeel.cpp"/>
+        <FILE id="KqvkEh" name="CustomLookAndFeel.h" compile="0" resource="0"
+              file="../Common/CustomLookAndFeel.h"/>
+        <FILE id="y9McCD" name="DbSlider.h" compile="0" resource="0" file="../Common/DbSlider.h"/>
+        <FILE id="EsoKIJ" name="LogMsSlider.h" compile="0" resource="0" file="../Common/LogMsSlider.h"/>
+        <FILE id="bP0c97" name="PresetBar.cpp" compile="1" resource="0" file="../Common/PresetBar.cpp"/>
+        <FILE id="ZyMa1h" name="PresetBar.h" compile="0" resource="0" file="../Common/PresetBar.h"/>
+        <FILE id="X8kDwP" name="PresetComboBox.cpp" compile="1" resource="0"
+              file="../Common/PresetComboBox.cpp"/>
+        <FILE id="PXLUqt" name="PresetComboBox.h" compile="0" resource="0"
+              file="../Common/PresetComboBox.h"/>
+        <FILE id="rJe7gI" name="Utilities.h" compile="0" resource="0" file="../Common/Utilities.h"/>
+      </GROUP>
       <GROUP id="{7D5DE783-B0B7-2E33-9621-E1C74A3AF03A}" name="dsp">
         <GROUP id="{459F8078-7FC0-B276-FDF5-4195A3F5F45C}" name="include">
           <FILE id="xjhSxK" name="Compressor.h" compile="0" resource="0" file="Source/dsp/include/Compressor.h"/>
@@ -68,20 +93,8 @@
           <FILE id="xQNqFS" name="SIMDMath.h" compile="0" resource="0" file="Source/util/include/SIMDMath.h"/>
         </GROUP>
       </GROUP>
-      <FILE id="UEG2JX" name="PresetComboBox.cpp" compile="1" resource="0"
-            file="Source/PresetComboBox.cpp"/>
-      <FILE id="lUt4u2" name="PresetComboBox.h" compile="0" resource="0"
-            file="Source/PresetComboBox.h"/>
-      <FILE id="rsFkNU" name="PresetBar.cpp" compile="1" resource="0" file="Source/PresetBar.cpp"/>
-      <FILE id="fE1Y0Y" name="PresetBar.h" compile="0" resource="0" file="Source/PresetBar.h"/>
       <FILE id="K0JDw3" name="CompressorDisplay.h" compile="0" resource="0"
             file="Source/CompressorDisplay.h"/>
-      <FILE id="XNohd2" name="CustomLookAndFeel.cpp" compile="1" resource="0"
-            file="Source/CustomLookAndFeel.cpp"/>
-      <FILE id="XrAhcl" name="CustomLookAndFeel.h" compile="0" resource="0"
-            file="Source/CustomLookAndFeel.h"/>
-      <FILE id="Z7yOW0" name="DbSlider.h" compile="0" resource="0" file="Source/DbSlider.h"/>
-      <FILE id="KSB7YZ" name="LogMsSlider.h" compile="0" resource="0" file="Source/LogMsSlider.h"/>
       <FILE id="uBSA1o" name="HayesCompressorAudioProcessor.h" compile="0"
             resource="0" file="Source/HayesCompressorAudioProcessor.h"/>
       <FILE id="bZzmPK" name="HayesCompressorAudioProcessor.cpp" compile="1"
@@ -90,7 +103,6 @@
             resource="0" file="Source/HayesCompressorAudioProcessorEditor.h"/>
       <FILE id="dxJIp1" name="HayesCompressorAudioProcessorEditor.cpp" compile="1"
             resource="0" file="Source/HayesCompressorAudioProcessorEditor.cpp"/>
-      <FILE id="xE5ItG" name="Utilities.h" compile="0" resource="0" file="Source/Utilities.h"/>
     </GROUP>
     <FILE id="bItEVP" name="bg_file.jpg" compile="0" resource="1" file="Images/bg_file.jpg"/>
   </MAINGROUP>
@@ -98,8 +110,8 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug"/>
-        <CONFIGURATION isDebug="0" name="Release"/>
+        <CONFIGURATION isDebug="1" name="Debug" macOSDeploymentTarget="10.9" osxCompatibility="10.9 SDK"/>
+        <CONFIGURATION isDebug="0" name="Release" macOSDeploymentTarget="10.9" osxCompatibility="10.9 SDK"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>

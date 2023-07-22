@@ -132,7 +132,7 @@ void PresetBar::deletePreset(const std::string& name, bool alsoDeleteFile)
         {
             // specify the path to your presets folder
             juce::File presetDir = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory)
-                .getChildFile("HayesCompressor");
+                .getChildFile(JucePlugin_Name);
 
             // build the full path to the preset file
             juce::File presetFile = presetDir.getChildFile(name + ".preset");
@@ -186,7 +186,7 @@ bool PresetBar::loadDefaultPresets()
     // this goes in your constructor, after setting up the presetBox
     // specify the path to your default presets folder
     juce::File presetDir = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory)
-        .getChildFile("HayesCompressor");
+        .getChildFile(JucePlugin_Name);
 
     // check if the folder exists
     if (presetDir.exists())
@@ -231,7 +231,7 @@ bool PresetBar::savePreset(const std::string& name)
         return false;
 
     juce::File presetDir = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory)
-        .getChildFile("HayesCompressor");
+        .getChildFile(JucePlugin_Name);
 
     if (!presetDir.exists())
         presetDir.createDirectory();

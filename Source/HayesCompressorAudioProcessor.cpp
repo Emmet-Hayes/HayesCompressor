@@ -1,11 +1,11 @@
 #include "HayesCompressorAudioProcessor.h"
 #include "HayesCompressorAudioProcessorEditor.h"
-#include "Utilities.h"
+#include "../../Common/Utilities.h"
 #include "util/include/Constants.h"
 #include <JuceHeader.h>
 
 HayesCompressorAudioProcessor::HayesCompressorAudioProcessor()
-:   apvts (*this, nullptr, "PARAMETERS", createParameterLayout())
+:   BaseAudioProcessor(createParameterLayout())
 {
     apvts.addParameterListener("power", this);
     apvts.addParameterListener("lookahead", this);

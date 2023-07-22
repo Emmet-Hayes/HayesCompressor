@@ -3,10 +3,13 @@
 #include "HayesCompressorAudioProcessor.h"
 #include "gui/include/LabeledSlider.h"
 #include "gui/include/Meter.h"
-#include "CustomLookAndFeel.h"
-#include "PresetBar.h"
+#include "../../Common/BaseAudioProcessorEditor.h"
+#include "../../Common/CustomLookAndFeel.h"
+#include "../../Common/PresetBar.h"
 
-class HayesCompressorAudioProcessorEditor : public juce::AudioProcessorEditor, public juce::Button::Listener, juce::Timer
+class HayesCompressorAudioProcessorEditor : public BaseAudioProcessorEditor
+                                         , public juce::Button::Listener
+                                         , juce::Timer
 {
 public:
     HayesCompressorAudioProcessorEditor(HayesCompressorAudioProcessor&);
@@ -23,15 +26,14 @@ private:
 
     HayesCompressorAudioProcessor& processor;
 
+    // Vibe amd Bg Image
     CustomLookAndFeel customLookAndFeel;
-
     juce::Image image;
 
     //Widgets
     PresetBar presetBar;
     MeterBackground meterbg;
     Meter meter;
-
     LabeledSlider inGainLSlider;
     LabeledSlider makeupGainLSlider;
     LabeledSlider treshLSlider;
@@ -40,7 +42,6 @@ private:
     LabeledSlider attackLSlider;
     LabeledSlider releaseLSlider;
     LabeledSlider mixLSlider;
-
     juce::TextButton lahButton;
     juce::TextButton autoAttackButton;
     juce::TextButton autoReleaseButton;

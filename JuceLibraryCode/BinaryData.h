@@ -9,7 +9,7 @@
 namespace BinaryData
 {
     extern const char*   power_white_svg;
-    const int            power_white_svgSize = 2984;
+    const int            power_white_svgSize = 2873;
 
     extern const char*   RobotoBold_ttf;
     const int            RobotoBold_ttfSize = 170348;
