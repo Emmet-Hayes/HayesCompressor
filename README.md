@@ -1,5 +1,6 @@
 # HayesCompressor
-A Simple Compressor audio plug-in written with JUCE. 
-It provides both input and output gain, a meter to visualize gain reduction, as well as all the other bells and whistles you might want for a compressor.
+A free, open-source Compressor audio plug-in.
+It provides both input and output gain, a meter to visualize gain reduction, as well as attack, release, threshold, ratio, and knee controls that are very useful in shaping the response of the compressor.
+Written with JUCE.
 
 ![alt text](Images/CompressorGUI.png)
