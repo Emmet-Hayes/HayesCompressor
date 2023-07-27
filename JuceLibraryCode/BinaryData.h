@@ -8,6 +8,9 @@
 
 namespace BinaryData
 {
+    extern const char*   bg_file_jpg;
+    const int            bg_file_jpgSize = 101995;
+
     extern const char*   power_white_svg;
     const int            power_white_svgSize = 2873;
 
@@ -22,9 +25,6 @@ namespace BinaryData
 
     extern const char*   RobotoRegular_ttf;
     const int            RobotoRegular_ttfSize = 171272;
-
-    extern const char*   bg_file_jpg;
-    const int            bg_file_jpgSize = 101995;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 6;

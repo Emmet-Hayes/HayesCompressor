@@ -2,47 +2,50 @@
 
 <JUCERPROJECT id="QJYSWj" name="HayesCompressor" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              companyName="EmmetSoft" pluginFormats="buildAU,buildLV2,buildStandalone,buildVST3"
-              defines="JUCE_MODAL_LOOPS_PERMITTED=1">
+              companyName="EmmetSoft" pluginFormats="buildAU,buildVST3" defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="iBp2h2" name="HayesCompressor">
-    <GROUP id="{B06D15B7-C597-EC07-A11E-5B8F1A7F0079}" name="New Group"/>
-    <GROUP id="{6FED16B8-CB25-1D46-527C-600F31F129EF}" name="Drawables">
-      <FILE id="HVCiFF" name="power_white.svg" compile="0" resource="1" file="Drawables/power_white.svg"/>
+    <GROUP id="{E676454C-A8D5-2739-DE46-5E0F41563BB0}" name="Resources">
+      <GROUP id="{0185BBD8-0CA8-9B6A-AF34-4684ADBF9A4D}" name="Images">
+        <FILE id="Ent4Yw" name="bg_file.jpg" compile="0" resource="1" file="Resources/Images/bg_file.jpg"/>
+      </GROUP>
+      <GROUP id="{6FED16B8-CB25-1D46-527C-600F31F129EF}" name="Drawables">
+        <FILE id="j1i7O8" name="power_white.svg" compile="0" resource="1" file="Resources/Drawables/power_white.svg"/>
+      </GROUP>
+      <GROUP id="{01C57616-D980-35E9-068E-42CC34AEE0A6}" name="Fonts">
+        <FILE id="sC5Bhz" name="Roboto-Bold.ttf" compile="0" resource="1" file="Resources/Fonts/Roboto-Bold.ttf"/>
+        <FILE id="Z5IUBb" name="Roboto-Light.ttf" compile="0" resource="1"
+              file="Resources/Fonts/Roboto-Light.ttf"/>
+        <FILE id="VSmu39" name="Roboto-Medium.ttf" compile="0" resource="1"
+              file="Resources/Fonts/Roboto-Medium.ttf"/>
+        <FILE id="ZhBhsP" name="Roboto-Regular.ttf" compile="0" resource="1"
+              file="Resources/Fonts/Roboto-Regular.ttf"/>
+      </GROUP>
     </GROUP>
-    <GROUP id="{01C57616-D980-35E9-068E-42CC34AEE0A6}" name="Fonts">
-      <FILE id="fh1C1s" name="Roboto-Bold.ttf" compile="0" resource="1" file="Fonts/Roboto-Bold.ttf"/>
-      <FILE id="SjLcGa" name="Roboto-Light.ttf" compile="0" resource="1"
-            file="Fonts/Roboto-Light.ttf"/>
-      <FILE id="KCPkQ6" name="Roboto-Medium.ttf" compile="0" resource="1"
-            file="Fonts/Roboto-Medium.ttf"/>
-      <FILE id="xtnh9P" name="Roboto-Regular.ttf" compile="0" resource="1"
-            file="Fonts/Roboto-Regular.ttf"/>
+    <GROUP id="{8BF919D6-15EB-48A0-9DF2-B47ACF3B361F}" name="Common">
+      <FILE id="CXqtFY" name="BaseAudioProcessor.cpp" compile="1" resource="0"
+            file="../Common/BaseAudioProcessor.cpp"/>
+      <FILE id="IkjXxr" name="BaseAudioProcessor.h" compile="0" resource="0"
+            file="../Common/BaseAudioProcessor.h"/>
+      <FILE id="GBBl38" name="BaseAudioProcessorEditor.cpp" compile="1" resource="0"
+            file="../Common/BaseAudioProcessorEditor.cpp"/>
+      <FILE id="mg0H58" name="BaseAudioProcessorEditor.h" compile="0" resource="0"
+            file="../Common/BaseAudioProcessorEditor.h"/>
+      <FILE id="P2H8e0" name="CentredLabel.h" compile="0" resource="0" file="../Common/CentredLabel.h"/>
+      <FILE id="Vgdiui" name="CustomLookAndFeel.cpp" compile="1" resource="0"
+            file="../Common/CustomLookAndFeel.cpp"/>
+      <FILE id="KqvkEh" name="CustomLookAndFeel.h" compile="0" resource="0"
+            file="../Common/CustomLookAndFeel.h"/>
+      <FILE id="y9McCD" name="DbSlider.h" compile="0" resource="0" file="../Common/DbSlider.h"/>
+      <FILE id="EsoKIJ" name="LogMsSlider.h" compile="0" resource="0" file="../Common/LogMsSlider.h"/>
+      <FILE id="bP0c97" name="PresetBar.cpp" compile="1" resource="0" file="../Common/PresetBar.cpp"/>
+      <FILE id="ZyMa1h" name="PresetBar.h" compile="0" resource="0" file="../Common/PresetBar.h"/>
+      <FILE id="X8kDwP" name="PresetComboBox.cpp" compile="1" resource="0"
+            file="../Common/PresetComboBox.cpp"/>
+      <FILE id="PXLUqt" name="PresetComboBox.h" compile="0" resource="0"
+            file="../Common/PresetComboBox.h"/>
+      <FILE id="rJe7gI" name="Utilities.h" compile="0" resource="0" file="../Common/Utilities.h"/>
     </GROUP>
     <GROUP id="{90861016-F3AA-FAE6-39AA-0A51185268BE}" name="Source">
-      <GROUP id="{8BF919D6-15EB-48A0-9DF2-B47ACF3B361F}" name="Common">
-        <FILE id="CXqtFY" name="BaseAudioProcessor.cpp" compile="1" resource="0"
-              file="../Common/BaseAudioProcessor.cpp"/>
-        <FILE id="IkjXxr" name="BaseAudioProcessor.h" compile="0" resource="0"
-              file="../Common/BaseAudioProcessor.h"/>
-        <FILE id="GBBl38" name="BaseAudioProcessorEditor.cpp" compile="1" resource="0"
-              file="../Common/BaseAudioProcessorEditor.cpp"/>
-        <FILE id="mg0H58" name="BaseAudioProcessorEditor.h" compile="0" resource="0"
-              file="../Common/BaseAudioProcessorEditor.h"/>
-        <FILE id="P2H8e0" name="CentredLabel.h" compile="0" resource="0" file="../Common/CentredLabel.h"/>
-        <FILE id="Vgdiui" name="CustomLookAndFeel.cpp" compile="1" resource="0"
-              file="../Common/CustomLookAndFeel.cpp"/>
-        <FILE id="KqvkEh" name="CustomLookAndFeel.h" compile="0" resource="0"
-              file="../Common/CustomLookAndFeel.h"/>
-        <FILE id="y9McCD" name="DbSlider.h" compile="0" resource="0" file="../Common/DbSlider.h"/>
-        <FILE id="EsoKIJ" name="LogMsSlider.h" compile="0" resource="0" file="../Common/LogMsSlider.h"/>
-        <FILE id="bP0c97" name="PresetBar.cpp" compile="1" resource="0" file="../Common/PresetBar.cpp"/>
-        <FILE id="ZyMa1h" name="PresetBar.h" compile="0" resource="0" file="../Common/PresetBar.h"/>
-        <FILE id="X8kDwP" name="PresetComboBox.cpp" compile="1" resource="0"
-              file="../Common/PresetComboBox.cpp"/>
-        <FILE id="PXLUqt" name="PresetComboBox.h" compile="0" resource="0"
-              file="../Common/PresetComboBox.h"/>
-        <FILE id="rJe7gI" name="Utilities.h" compile="0" resource="0" file="../Common/Utilities.h"/>
-      </GROUP>
       <GROUP id="{7D5DE783-B0B7-2E33-9621-E1C74A3AF03A}" name="dsp">
         <GROUP id="{459F8078-7FC0-B276-FDF5-4195A3F5F45C}" name="include">
           <FILE id="xjhSxK" name="Compressor.h" compile="0" resource="0" file="Source/dsp/include/Compressor.h"/>
@@ -104,7 +107,6 @@
       <FILE id="dxJIp1" name="HayesCompressorAudioProcessorEditor.cpp" compile="1"
             resource="0" file="Source/HayesCompressorAudioProcessorEditor.cpp"/>
     </GROUP>
-    <FILE id="bItEVP" name="bg_file.jpg" compile="0" resource="1" file="Images/bg_file.jpg"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
@@ -171,6 +173,27 @@
         <MODULEPATH id="juce_dsp" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
+    <XCODE_IPHONE targetFolder="Builds/iOS">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" iosCompatibility="11.0" iosDeploymentTarget="11.0"/>
+        <CONFIGURATION isDebug="0" name="Release" iosCompatibility="11.0" iosDeploymentTarget="11.0"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="/Users/emmethayes/Desktop/HayesPlugins/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_IPHONE>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
