@@ -12,22 +12,13 @@ namespace BinaryData
     const int            bg_file_jpgSize = 101995;
 
     extern const char*   power_white_svg;
-    const int            power_white_svgSize = 2873;
+    const int            power_white_svgSize = 2984;
 
-    extern const char*   RobotoBold_ttf;
-    const int            RobotoBold_ttfSize = 170348;
-
-    extern const char*   RobotoLight_ttf;
-    const int            RobotoLight_ttfSize = 170012;
-
-    extern const char*   RobotoMedium_ttf;
-    const int            RobotoMedium_ttfSize = 171656;
-
-    extern const char*   RobotoRegular_ttf;
-    const int            RobotoRegular_ttfSize = 171272;
+    extern const char*   JuliafontRegular_ttf;
+    const int            JuliafontRegular_ttfSize = 15320;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 6;
+    const int namedResourceListSize = 3;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

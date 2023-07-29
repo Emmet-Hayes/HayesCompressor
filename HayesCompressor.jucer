@@ -12,13 +12,8 @@
         <FILE id="j1i7O8" name="power_white.svg" compile="0" resource="1" file="Resources/Drawables/power_white.svg"/>
       </GROUP>
       <GROUP id="{01C57616-D980-35E9-068E-42CC34AEE0A6}" name="Fonts">
-        <FILE id="sC5Bhz" name="Roboto-Bold.ttf" compile="0" resource="1" file="Resources/Fonts/Roboto-Bold.ttf"/>
-        <FILE id="Z5IUBb" name="Roboto-Light.ttf" compile="0" resource="1"
-              file="Resources/Fonts/Roboto-Light.ttf"/>
-        <FILE id="VSmu39" name="Roboto-Medium.ttf" compile="0" resource="1"
-              file="Resources/Fonts/Roboto-Medium.ttf"/>
-        <FILE id="ZhBhsP" name="Roboto-Regular.ttf" compile="0" resource="1"
-              file="Resources/Fonts/Roboto-Regular.ttf"/>
+        <FILE id="iIdwqT" name="Juliafont-Regular.ttf" compile="0" resource="1"
+              file="../Common/Fonts/Juliafont-Regular.ttf"/>
       </GROUP>
     </GROUP>
     <GROUP id="{8BF919D6-15EB-48A0-9DF2-B47ACF3B361F}" name="Common">
