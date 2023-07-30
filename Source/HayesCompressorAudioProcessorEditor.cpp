@@ -40,7 +40,11 @@ void HayesCompressorAudioProcessorEditor::paint(juce::Graphics& g)
 
 void HayesCompressorAudioProcessorEditor::resized()
 {
-    auto area = getLocalBounds().reduced(Constants::Margins::big);
+    int smallMargin = static_cast<int>(Constants::Margins::small);
+    int mediumMargin = static_cast<int>(Constants::Margins::medium);
+    int bigMargin = static_cast<int>(Constants::Margins::big);
+
+    auto area = getLocalBounds().reduced(bigMargin);
     
     auto presetBarHeight = 15;
     presetBar.setBounds(area.removeFromTop(presetBarHeight));
@@ -49,16 +53,15 @@ void HayesCompressorAudioProcessorEditor::resized()
     const auto btnAreaWidth = area.getWidth() / 5;
     const auto btnBotHeight = area.getHeight() / 3;
 
-    auto header = area.removeFromTop(headerHeight).reduced(Constants::Margins::small);
-    auto lBtnArea = area.removeFromLeft(btnAreaWidth).reduced(Constants::Margins::small);
-    auto rBtnArea = area.removeFromRight(btnAreaWidth).reduced(Constants::Margins::small);
-    auto botBtnArea = area.removeFromBottom(btnBotHeight).reduced(Constants::Margins::medium);
+    auto header = area.removeFromTop(headerHeight).reduced(smallMargin);
+    auto lBtnArea = area.removeFromLeft(btnAreaWidth).reduced(smallMargin);
+    auto rBtnArea = area.removeFromRight(btnAreaWidth).reduced(smallMargin);
+    auto botBtnArea = area.removeFromBottom(btnBotHeight).reduced(mediumMargin);
 
     const juce::FlexItem::Margin knobMargin = juce::FlexItem::Margin(Constants::Margins::medium);
     const juce::FlexItem::Margin knobMarginSmall = juce::FlexItem::Margin(Constants::Margins::medium);
     const juce::FlexItem::Margin buttonMargin = juce::FlexItem::Margin(Constants::Margins::small, Constants::Margins::big,
-        Constants::Margins::small,
-        Constants::Margins::big);
+                                                                       Constants::Margins::small, Constants::Margins::big);
 
     juce::FlexBox headerBox;
     headerBox.flexWrap = juce::FlexBox::Wrap::noWrap;

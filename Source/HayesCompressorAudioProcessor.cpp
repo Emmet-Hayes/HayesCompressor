@@ -146,13 +146,13 @@ juce::AudioProcessorValueTreeState::ParameterLayout HayesCompressorAudioProcesso
         }));
 
 
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("threshold", "Tresh",
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("threshold", "Thresh",
         juce::NormalisableRange<float>(
             Constants::Parameter::thresholdStart,
             Constants::Parameter::thresholdEnd,
             Constants::Parameter::thresholdInterval), -10.0f,
         juce::String(), juce::AudioProcessorParameter::genericParameter,
-        [](float value, float maxStrLen)
+        [](float value, float /*maxStrLen*/)
         {
             return juce::String(value, 1) + " dB";
         }));

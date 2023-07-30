@@ -43,7 +43,7 @@ public:
     void resized() override
     {
         auto bounds = getLocalBounds().reduced(2);
-        const auto fontHeight = sliderLabel.getFont().getHeight();
+        const auto fontHeight = static_cast<int>(sliderLabel.getFont().getHeight());
 
         const auto labelBounds = bounds.removeFromBottom(fontHeight);
         slider.setBounds(bounds);
