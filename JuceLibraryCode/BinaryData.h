@@ -15,7 +15,7 @@ namespace BinaryData
     const int            power_white_svgSize = 2984;
 
     extern const char*   JuliafontRegular_ttf;
-    const int            JuliafontRegular_ttfSize = 15320;
+    const int            JuliafontRegular_ttfSize = 15516;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 3;

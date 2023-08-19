@@ -1,18 +1,9 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
 
 #include "HayesCompressorAudioProcessor.h"
 #include "HayesCompressorAudioProcessorEditor.h"
 #include "util/include/Constants.h"
 
-//==============================================================================
+
 HayesCompressorAudioProcessorEditor::HayesCompressorAudioProcessorEditor(HayesCompressorAudioProcessor& p)
 :   BaseAudioProcessorEditor(p)
 ,   processor(p)

@@ -8,8 +8,8 @@
 #include "../../Common/PresetBar.h"
 
 class HayesCompressorAudioProcessorEditor : public BaseAudioProcessorEditor
-                                         , public juce::Button::Listener
-                                         , juce::Timer
+                                          , public juce::Button::Listener
+                                          , juce::Timer
 {
 public:
     HayesCompressorAudioProcessorEditor(HayesCompressorAudioProcessor&);
@@ -24,28 +24,19 @@ private:
     void initWidgets();
     void setGUIState(bool);
 
-    HayesCompressorAudioProcessor& processor;
-
-    // Vibe amd Bg Image
     CustomLookAndFeel customLookAndFeel;
+    
+    HayesCompressorAudioProcessor& processor;
+    
     juce::Image image;
 
-    //Widgets
     PresetBar presetBar;
+    
     MeterBackground meterbg;
     Meter meter;
-    LabeledSlider inGainLSlider;
-    LabeledSlider makeupGainLSlider;
-    LabeledSlider treshLSlider;
-    LabeledSlider ratioLSlider;
-    LabeledSlider kneeLSlider;
-    LabeledSlider attackLSlider;
-    LabeledSlider releaseLSlider;
-    LabeledSlider mixLSlider;
-    juce::TextButton lahButton;
-    juce::TextButton autoAttackButton;
-    juce::TextButton autoReleaseButton;
-    juce::TextButton autoMakeupButton;
+    LabeledSlider inGainLSlider, makeupGainLSlider, treshLSlider, ratioLSlider,
+                  kneeLSlider, attackLSlider, releaseLSlider, mixLSlider;
+    juce::TextButton lahButton, autoAttackButton, autoReleaseButton, autoMakeupButton;
     juce::DrawableButton powerButton;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> lahAttachment;
