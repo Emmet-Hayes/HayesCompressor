@@ -3,7 +3,6 @@
 #include "ModSlider.h"
 
 using SliderAttachment = std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>;
-using ButtonAttachment = std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment>;
 
 class LabeledSlider : public juce::Component
 {
@@ -57,5 +56,4 @@ private:
     ModSlider slider;
     juce::Label sliderLabel;
     SliderAttachment sAttachment;
-    ButtonAttachment bAttachment;
 };

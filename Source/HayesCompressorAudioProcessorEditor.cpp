@@ -2,15 +2,15 @@
 #include "HayesCompressorAudioProcessor.h"
 #include "HayesCompressorAudioProcessorEditor.h"
 #include "util/include/Constants.h"
+#include "../../Common/DbSlider.h"
+#include "../../Common/LogMsSlider.h"
+#include "../../Common/PercentSlider.h"
 
 
 HayesCompressorAudioProcessorEditor::HayesCompressorAudioProcessorEditor(HayesCompressorAudioProcessor& p)
 :   BaseAudioProcessorEditor(p)
 ,   processor(p)
 ,   presetBar(p)
-,   inGainLSlider(this), makeupGainLSlider(this), treshLSlider(this), ratioLSlider(this), kneeLSlider(this)
-,   attackLSlider(this), releaseLSlider(this), mixLSlider(this)
-,   powerButton("powerButton", juce::DrawableButton::ButtonStyle::ImageOnButtonBackground)
 {
     setLookAndFeel(&customLookAndFeel);
     initWidgets();
@@ -31,79 +31,30 @@ void HayesCompressorAudioProcessorEditor::paint(juce::Graphics& g)
 
 void HayesCompressorAudioProcessorEditor::resized()
 {
-    int smallMargin = static_cast<int>(Constants::Margins::small);
-    int mediumMargin = static_cast<int>(Constants::Margins::medium);
-    int bigMargin = static_cast<int>(Constants::Margins::big);
-
-    auto area = getLocalBounds().reduced(bigMargin);
-    
-    auto presetBarHeight = 15;
-    presetBar.setBounds(area.removeFromTop(presetBarHeight));
-
-    const auto headerHeight = presetBarHeight + 10;
-    const auto btnAreaWidth = area.getWidth() / 5;
-    const auto btnBotHeight = area.getHeight() / 3;
-
-    auto header = area.removeFromTop(headerHeight).reduced(smallMargin);
-    auto lBtnArea = area.removeFromLeft(btnAreaWidth).reduced(smallMargin);
-    auto rBtnArea = area.removeFromRight(btnAreaWidth).reduced(smallMargin);
-    auto botBtnArea = area.removeFromBottom(btnBotHeight).reduced(mediumMargin);
-
-    const juce::FlexItem::Margin knobMargin = juce::FlexItem::Margin(Constants::Margins::medium);
-    const juce::FlexItem::Margin knobMarginSmall = juce::FlexItem::Margin(Constants::Margins::medium);
-    const juce::FlexItem::Margin buttonMargin = juce::FlexItem::Margin(Constants::Margins::small, Constants::Margins::big,
-                                                                       Constants::Margins::small, Constants::Margins::big);
-
-    juce::FlexBox headerBox;
-    headerBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    headerBox.flexDirection = juce::FlexBox::Direction::row;
-    headerBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    headerBox.items.add(juce::FlexItem(lahButton).withFlex(2).withMargin(buttonMargin));
-    headerBox.items.add(juce::FlexItem(autoAttackButton).withFlex(2).withMargin(buttonMargin));
-    headerBox.items.add(juce::FlexItem(autoReleaseButton).withFlex(2).withMargin(buttonMargin));
-    headerBox.items.add(juce::FlexItem(autoMakeupButton).withFlex(2).withMargin(buttonMargin));
-    headerBox.items.add(juce::FlexItem(powerButton).withFlex(1).withMargin(buttonMargin));
-    headerBox.performLayout(header.toFloat());
-
-    juce::FlexBox leftBtnBox;
-    leftBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    leftBtnBox.flexDirection = juce::FlexBox::Direction::column;
-    leftBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    leftBtnBox.items.add(juce::FlexItem(attackLSlider).withFlex(1).withMargin(knobMarginSmall));
-    leftBtnBox.items.add(juce::FlexItem(releaseLSlider).withFlex(1).withMargin(knobMarginSmall));
-    leftBtnBox.items.add(juce::FlexItem(inGainLSlider).withFlex(1).withMargin(knobMarginSmall));
-    leftBtnBox.performLayout(lBtnArea.toFloat());
-
-    juce::FlexBox rightBtnBox;
-    rightBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    rightBtnBox.flexDirection = juce::FlexBox::Direction::column;
-    rightBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    rightBtnBox.items.add(juce::FlexItem(kneeLSlider).withFlex(1).withMargin(knobMarginSmall));
-    rightBtnBox.items.add(juce::FlexItem(ratioLSlider).withFlex(1).withMargin(knobMarginSmall));
-    rightBtnBox.items.add(juce::FlexItem(mixLSlider).withFlex(1).withMargin(knobMarginSmall));
-    rightBtnBox.performLayout(rBtnArea.toFloat());
-
-    juce::FlexBox botBtnBox;
-    botBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    botBtnBox.flexDirection = juce::FlexBox::Direction::row;
-    botBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    botBtnBox.items.add(juce::FlexItem(treshLSlider).withFlex(1).withMargin(knobMargin));
-    botBtnBox.items.add(juce::FlexItem(makeupGainLSlider).withFlex(1).withMargin(knobMargin));
-    botBtnBox.performLayout(botBtnArea.toFloat());
-
-    juce::FlexBox meterBox;
-    meterBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    meterBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    meterBox.items.add(juce::FlexItem(meter).withFlex(1).withMargin(Constants::Margins::big));
-    meterBox.performLayout(area.toFloat());
+    presetBar.setBounds(0, 0, 400, 20);
+    sliders[0]->setBounds(155, 55, 70, 70);
+    sliders[1]->setBounds(225, 55, 70, 70);
+    sliders[2]->setBounds(15, 45, 60, 60);
+    sliders[3]->setBounds(15, 135, 60, 60);
+    sliders[4]->setBounds(15, 225, 60, 60);
+    sliders[5]->setBounds(85, 45, 60, 60);
+    sliders[6]->setBounds(85, 135, 60, 60);
+    sliders[7]->setBounds(85, 225, 60, 60);
+    meterbg.setBounds(155, 155, 230, 130);
+    meter.setBounds(155, 155, 230, 130);
+    buttons[0]->setBounds(315, 55, 70, 20);
+    buttons[1]->setBounds(315, 80, 70, 20);
+    buttons[2]->setBounds(315, 105, 70, 20);
+    buttons[3]->setBounds(315, 130, 70, 20);
+    buttons[4]->setBounds(375, 25, 20, 20);
 }
 
 
 void HayesCompressorAudioProcessorEditor::buttonClicked(juce::Button* b)
 {
-    if (b == &autoAttackButton)attackLSlider.setEnabled(!attackLSlider.isEnabled());
-    if (b == &autoReleaseButton)releaseLSlider.setEnabled(!releaseLSlider.isEnabled());
-    if (b == &powerButton) setGUIState(powerButton.getToggleState());
+    if (b == buttons[1].get()) sliders[5]->setEnabled(!sliders[5]->isEnabled());
+    if (b == buttons[2].get()) sliders[6]->setEnabled(!sliders[6]->isEnabled());
+    if (b == buttons[4].get()) setGUIState(buttons[4]->getToggleState());
 }
 
 void HayesCompressorAudioProcessorEditor::timerCallback()
@@ -111,91 +62,77 @@ void HayesCompressorAudioProcessorEditor::timerCallback()
     int m = meter.getMode();
     switch (m)
     {
-    case Meter::Mode::IN:
-        meter.update(processor.inputGain.get());
-        break;
-    case Meter::Mode::OUT:
-        meter.update(processor.outputGain.get());
-        break;
-    case Meter::Mode::GR:
-        meter.update(processor.gainReduction.get());
-        break;
-    default:
-        break;
+        case Meter::Mode::IN:
+            meter.update(processor.inputGain.get());
+            break;
+        case Meter::Mode::OUT:
+            meter.update(processor.outputGain.get());
+            break;
+        case Meter::Mode::GR:
+            meter.update(processor.gainReduction.get());
+            break;
+        default:
+            break;
     }
 }
 
 void HayesCompressorAudioProcessorEditor::initWidgets()
 {
-    addAndMakeVisible(inGainLSlider);
-    inGainLSlider.reset(processor.apvts, "inputgain");
-    inGainLSlider.setLabelText("Input");
+    auto initialise_slider = [&](juce::Slider* slider, juce::Label* label, 
+                                 std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> attachment, 
+                                 const char* name, const char* paramName)
+    {
+        slider->setSliderStyle(juce::Slider::SliderStyle::Rotary);
+        slider->setTextBoxStyle(juce::Slider::TextBoxBelow, false, 70, 20);
+        label->setText(name, juce::dontSendNotification);
+        label->attachToComponent(slider, false);
+        addAndMakeVisible(slider);
+        attachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(processor.apvts, paramName, *slider));
+    };
 
-    addAndMakeVisible(makeupGainLSlider);
-    makeupGainLSlider.reset(processor.apvts, "makeup");
-    makeupGainLSlider.setLabelText("Makeup");
+    sliders[0] = std::make_unique<DbSlider>();
+    initialise_slider(sliders[0].get(), &labels[0], std::move(sliderAttachments[0]), "Input",     "inputgain");
+    sliders[1] = std::make_unique<DbSlider>();
+    initialise_slider(sliders[1].get(), &labels[1], std::move(sliderAttachments[1]), "Makeup",    "makeup");
+    sliders[2] = std::make_unique<DbSlider>();
+    initialise_slider(sliders[2].get(), &labels[2], std::move(sliderAttachments[2]), "Threshold", "threshold");
+    sliders[3] = std::make_unique<juce::Slider>();
+    initialise_slider(sliders[3].get(), &labels[3], std::move(sliderAttachments[3]), "Ratio",     "ratio");
+    sliders[4] = std::make_unique<DbSlider>();
+    initialise_slider(sliders[4].get(), &labels[4], std::move(sliderAttachments[4]), "Knee",      "knee");
+    sliders[5] = std::make_unique<LogMsSlider>();
+    initialise_slider(sliders[5].get(), &labels[5], std::move(sliderAttachments[5]), "Attack",    "attack");
+    sliders[6] = std::make_unique<LogMsSlider>();
+    initialise_slider(sliders[6].get(), &labels[6], std::move(sliderAttachments[6]), "Release",   "release");
+    sliders[7] = std::make_unique<PercentSlider>();
+    initialise_slider(sliders[7].get(), &labels[7], std::move(sliderAttachments[7]), "Mix",       "mix");
 
-    addAndMakeVisible(treshLSlider);
-    treshLSlider.reset(processor.apvts, "threshold");
-    treshLSlider.setLabelText("Threshold");
+    auto initialise_button = [&](juce::Button* button, 
+                                 std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> attachment,
+                                 const char* buttonText, const char* paramName, bool shouldAddAsListener)
+    {
+        addAndMakeVisible(button);
+        button->setButtonText(buttonText);
+        button->setClickingTogglesState(true);
+        button->setToggleState(false, juce::dontSendNotification);
+        if (shouldAddAsListener)
+            button->addListener(this);
+        attachment.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, paramName, *button));
+    };
 
-    addAndMakeVisible(ratioLSlider);
-    ratioLSlider.reset(processor.apvts, "ratio");
-    ratioLSlider.setLabelText("Ratio");
+    buttons[0] = std::make_unique<juce::TextButton>();
+    initialise_button(buttons[0].get(), std::move(buttonAttachments[0]), "LookAhead",  "lookahead", false);
+    buttons[1] = std::make_unique<juce::TextButton>();
+    initialise_button(buttons[1].get(), std::move(buttonAttachments[1]), "AutoAttack",  "autoattack", true);
+    buttons[2] = std::make_unique<juce::TextButton>();
+    initialise_button(buttons[2].get(), std::move(buttonAttachments[2]), "AutoRelease", "autorelease", true);
+    buttons[3] = std::make_unique<juce::TextButton>();
+    initialise_button(buttons[3].get(), std::move(buttonAttachments[3]), "AutoMakeup",  "automakeup", true);
 
-    addAndMakeVisible(kneeLSlider);
-    kneeLSlider.reset(processor.apvts, "knee");
-    kneeLSlider.setLabelText("Knee");
-
-    addAndMakeVisible(attackLSlider);
-    attackLSlider.reset(processor.apvts, "attack");
-    attackLSlider.setLabelText("Attack");
-
-    addAndMakeVisible(releaseLSlider);
-    releaseLSlider.reset(processor.apvts, "release");
-    releaseLSlider.setLabelText("Release");
-
-    addAndMakeVisible(mixLSlider);
-    mixLSlider.reset(processor.apvts, "mix");
-    mixLSlider.setLabelText("Mix");
-
-    addAndMakeVisible(lahButton);
-    lahButton.setButtonText("LookAhead");
-    lahButton.setClickingTogglesState(true);
-    lahButton.setToggleState(false, juce::dontSendNotification);
-    lahAttachment.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "lookahead", lahButton));
-
-    addAndMakeVisible(autoAttackButton);
-    autoAttackButton.setButtonText("AutoAttack");
-    autoAttackButton.setClickingTogglesState(true);
-    autoAttackButton.setToggleState(false, juce::dontSendNotification);
-    autoAttackButton.addListener(this);
-    autoAttackAttachment.reset(
-        new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "autoattack", autoAttackButton));
-
-    addAndMakeVisible(autoReleaseButton);
-    autoReleaseButton.setButtonText("AutoRelease");
-    autoReleaseButton.setClickingTogglesState(true);
-    autoReleaseButton.setToggleState(false, juce::dontSendNotification);
-    autoReleaseButton.addListener(this);
-    autoReleaseAttachment.reset(
-        new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "autorelease", autoReleaseButton));
-
-    addAndMakeVisible(autoMakeupButton);
-    autoMakeupButton.setButtonText("Makeup");
-    autoMakeupButton.setClickingTogglesState(true);
-    autoMakeupButton.setToggleState(false, juce::dontSendNotification);
-    autoMakeupButton.addListener(this);
-    autoMakeupAttachment.reset(
-        new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "automakeup", autoMakeupButton));
-
-    addAndMakeVisible(powerButton);
-    powerButton.setImages(
+    buttons[4] = std::make_unique<juce::DrawableButton>("powerButton", juce::DrawableButton::ButtonStyle::ImageOnButtonBackground);
+    initialise_button(buttons[4].get(), std::move(buttonAttachments[4]), "Power", "power", true);
+    dynamic_cast<juce::DrawableButton*>(buttons[4].get())->setImages(
         juce::Drawable::createFromImageData(BinaryData::power_white_svg, BinaryData::power_white_svgSize).get());
-    powerButton.setClickingTogglesState(true);
-    powerButton.setToggleState(true, juce::dontSendNotification);
-    powerButton.addListener(this);
-    powerAttachment.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(processor.apvts, "power", powerButton));
 
     addAndMakeVisible(meter);
     meter.setMode(Meter::Mode::GR);
@@ -205,28 +142,23 @@ void HayesCompressorAudioProcessorEditor::initWidgets()
 
 void HayesCompressorAudioProcessorEditor::setGUIState(bool powerState)
 {
-    inGainLSlider.setEnabled(powerState);
-    treshLSlider.setEnabled(powerState);
-    ratioLSlider.setEnabled(powerState);
-    kneeLSlider.setEnabled(powerState);
-    makeupGainLSlider.setEnabled(powerState);
-    mixLSlider.setEnabled(powerState);
+    for (int i = 0; i < NUM_SLIDERS; ++i)
+        sliders[i]->setEnabled(powerState);
+ 
     meter.setEnabled(powerState);
     meter.setGUIEnabled(powerState);
-    lahButton.setEnabled(powerState);
-    autoMakeupButton.setEnabled(powerState);
 
-    autoAttackButton.setEnabled(powerState);
-    autoReleaseButton.setEnabled(powerState);
+    for (int i = 0; i < NUM_BUTTONS - 1; ++i)
+        buttons[i]->setEnabled(powerState);
 
     if (!powerState)
     {
-        attackLSlider.setEnabled(powerState);
-        releaseLSlider.setEnabled(powerState);
+        sliders[5]->setEnabled(powerState);
+        sliders[6]->setEnabled(powerState);
     }
     else
     {
-        attackLSlider.setEnabled(!autoAttackButton.getToggleState());
-        releaseLSlider.setEnabled(!autoReleaseButton.getToggleState());
+        sliders[5]->setEnabled(!buttons[1]->getToggleState());
+        sliders[6]->setEnabled(!buttons[2]->getToggleState());
     }
 }

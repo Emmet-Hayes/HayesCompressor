@@ -5,7 +5,9 @@
 class ModSlider : public juce::Slider
 {
 public:
-    ModSlider(juce::Label* l) : label(l), isModifiable(false)
+    ModSlider(juce::Label* l) 
+    :   label(l)
+    ,   isModifiable(false)
     {
     }
 
@@ -40,7 +42,6 @@ public:
     {
         return isModifiable;
     }
-
 
 private:
     juce::Label* label;
