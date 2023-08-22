@@ -30,8 +30,8 @@
             file="../Common/CustomLookAndFeel.cpp"/>
       <FILE id="KqvkEh" name="CustomLookAndFeel.h" compile="0" resource="0"
             file="../Common/CustomLookAndFeel.h"/>
-      <FILE id="y9McCD" name="DbSlider.h" compile="0" resource="0" file="../Common/DbSlider.h"/>
-      <FILE id="EsoKIJ" name="LogMsSlider.h" compile="0" resource="0" file="../Common/LogMsSlider.h"/>
+      <FILE id="PrHNVy" name="LabeledSlider.h" compile="0" resource="0" file="../Common/LabeledSlider.h"/>
+      <FILE id="X6JN13" name="ModSlider.h" compile="0" resource="0" file="../Common/ModSlider.h"/>
       <FILE id="bP0c97" name="PresetBar.cpp" compile="1" resource="0" file="../Common/PresetBar.cpp"/>
       <FILE id="ZyMa1h" name="PresetBar.h" compile="0" resource="0" file="../Common/PresetBar.h"/>
       <FILE id="X8kDwP" name="PresetComboBox.cpp" compile="1" resource="0"
@@ -73,12 +73,10 @@
       </GROUP>
       <GROUP id="{1DDCEBEA-E38A-0B61-86CD-EEDF1765B7D6}" name="gui">
         <GROUP id="{DAF49C2E-B999-9CD9-0B6D-4031E8322FF6}" name="include">
-          <FILE id="YMnngH" name="LabeledSlider.h" compile="0" resource="0" file="Source/gui/include/LabeledSlider.h"/>
           <FILE id="FGypsC" name="Meter.h" compile="0" resource="0" file="Source/gui/include/Meter.h"/>
           <FILE id="q77V9n" name="MeterBackground.h" compile="0" resource="0"
                 file="Source/gui/include/MeterBackground.h"/>
           <FILE id="DLluCU" name="MeterNeedle.h" compile="0" resource="0" file="Source/gui/include/MeterNeedle.h"/>
-          <FILE id="JW3n3S" name="ModSlider.h" compile="0" resource="0" file="Source/gui/include/ModSlider.h"/>
         </GROUP>
         <FILE id="VYCR7z" name="Meter.cpp" compile="1" resource="0" file="Source/gui/Meter.cpp"/>
         <FILE id="uUFzqO" name="MeterBackground.cpp" compile="1" resource="0"

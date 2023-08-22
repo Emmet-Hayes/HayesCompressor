@@ -14,9 +14,14 @@ HayesCompressorAudioProcessorEditor::HayesCompressorAudioProcessorEditor(HayesCo
 {
     setLookAndFeel(&customLookAndFeel);
     initWidgets();
-    setSize(400, 300);
     startTimerHz(60);
     image = juce::ImageCache::getFromMemory(BinaryData::bg_file_jpg, BinaryData::bg_file_jpgSize);
+  
+    const auto ratio = static_cast<double> (defaultWidth) / defaultHeight;
+    setResizable(false, true);
+    getConstrainer()->setFixedAspectRatio(ratio);
+    getConstrainer()->setSizeLimits(defaultWidth, defaultHeight, defaultWidth * 2, defaultHeight * 2);
+    setSize(defaultWidth, defaultHeight);
 }
 
 HayesCompressorAudioProcessorEditor::~HayesCompressorAudioProcessorEditor()
@@ -31,71 +36,31 @@ void HayesCompressorAudioProcessorEditor::paint(juce::Graphics& g)
 
 void HayesCompressorAudioProcessorEditor::resized()
 {
-    int smallMargin = static_cast<int>(Constants::Margins::small);
-    int mediumMargin = static_cast<int>(Constants::Margins::medium);
-    int bigMargin = static_cast<int>(Constants::Margins::big);
+    const auto scale = static_cast<float> (getWidth()) / defaultWidth;
 
-    auto area = getLocalBounds().reduced(bigMargin);
+    auto setBoundsAndApplyScaling = [&](juce::Component* component, int x, int y, int w, int h)
+    {
+        component->setBounds(static_cast<int>(x * scale), static_cast<int>(y * scale),
+            static_cast<int>(w * scale), static_cast<int>(h * scale));
+    };
     
-    auto presetBarHeight = 15;
-    presetBar.setBounds(area.removeFromTop(presetBarHeight));
-
-    const auto headerHeight = presetBarHeight + 10;
-    const auto btnAreaWidth = area.getWidth() / 5;
-    const auto btnBotHeight = area.getHeight() / 3;
-
-    auto header = area.removeFromTop(headerHeight).reduced(smallMargin);
-    auto lBtnArea = area.removeFromLeft(btnAreaWidth).reduced(smallMargin);
-    auto rBtnArea = area.removeFromRight(btnAreaWidth).reduced(smallMargin);
-    auto botBtnArea = area.removeFromBottom(btnBotHeight).reduced(mediumMargin);
-
-    const juce::FlexItem::Margin knobMargin = juce::FlexItem::Margin(Constants::Margins::medium);
-    const juce::FlexItem::Margin knobMarginSmall = juce::FlexItem::Margin(Constants::Margins::medium);
-    const juce::FlexItem::Margin buttonMargin = juce::FlexItem::Margin(Constants::Margins::small, Constants::Margins::big,
-                                                                       Constants::Margins::small, Constants::Margins::big);
-
-    juce::FlexBox headerBox;
-    headerBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    headerBox.flexDirection = juce::FlexBox::Direction::row;
-    headerBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    headerBox.items.add(juce::FlexItem(lahButton).withFlex(2).withMargin(buttonMargin));
-    headerBox.items.add(juce::FlexItem(autoAttackButton).withFlex(2).withMargin(buttonMargin));
-    headerBox.items.add(juce::FlexItem(autoReleaseButton).withFlex(2).withMargin(buttonMargin));
-    headerBox.items.add(juce::FlexItem(autoMakeupButton).withFlex(2).withMargin(buttonMargin));
-    headerBox.items.add(juce::FlexItem(powerButton).withFlex(1).withMargin(buttonMargin));
-    headerBox.performLayout(header.toFloat());
-
-    juce::FlexBox leftBtnBox;
-    leftBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    leftBtnBox.flexDirection = juce::FlexBox::Direction::column;
-    leftBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    leftBtnBox.items.add(juce::FlexItem(attackLSlider).withFlex(1).withMargin(knobMarginSmall));
-    leftBtnBox.items.add(juce::FlexItem(releaseLSlider).withFlex(1).withMargin(knobMarginSmall));
-    leftBtnBox.items.add(juce::FlexItem(inGainLSlider).withFlex(1).withMargin(knobMarginSmall));
-    leftBtnBox.performLayout(lBtnArea.toFloat());
-
-    juce::FlexBox rightBtnBox;
-    rightBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    rightBtnBox.flexDirection = juce::FlexBox::Direction::column;
-    rightBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    rightBtnBox.items.add(juce::FlexItem(kneeLSlider).withFlex(1).withMargin(knobMarginSmall));
-    rightBtnBox.items.add(juce::FlexItem(ratioLSlider).withFlex(1).withMargin(knobMarginSmall));
-    rightBtnBox.items.add(juce::FlexItem(mixLSlider).withFlex(1).withMargin(knobMarginSmall));
-    rightBtnBox.performLayout(rBtnArea.toFloat());
-
-    juce::FlexBox botBtnBox;
-    botBtnBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    botBtnBox.flexDirection = juce::FlexBox::Direction::row;
-    botBtnBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    botBtnBox.items.add(juce::FlexItem(treshLSlider).withFlex(1).withMargin(knobMargin));
-    botBtnBox.items.add(juce::FlexItem(makeupGainLSlider).withFlex(1).withMargin(knobMargin));
-    botBtnBox.performLayout(botBtnArea.toFloat());
-
-    juce::FlexBox meterBox;
-    meterBox.flexWrap = juce::FlexBox::Wrap::noWrap;
-    meterBox.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
-    meterBox.items.add(juce::FlexItem(meter).withFlex(1).withMargin(Constants::Margins::big));
-    meterBox.performLayout(area.toFloat());
+    customLookAndFeel.setWindowScale(scale);
+    setBoundsAndApplyScaling(&presetBar, 0, 0, 400, 20);
+    setBoundsAndApplyScaling(&inGainLSlider, 175, 30, 70, 70);
+    setBoundsAndApplyScaling(&makeupGainLSlider, 265, 30, 70, 70);
+    setBoundsAndApplyScaling(&treshLSlider, 15, 30, 80, 80);
+    setBoundsAndApplyScaling(&ratioLSlider, 85, 30, 80, 80);
+    setBoundsAndApplyScaling(&attackLSlider, 15, 120, 80, 80);
+    setBoundsAndApplyScaling(&releaseLSlider, 85, 120, 80, 80);
+    setBoundsAndApplyScaling(&kneeLSlider, 15, 210, 80, 80);
+    setBoundsAndApplyScaling(&mixLSlider, 85, 210, 80, 80);
+    setBoundsAndApplyScaling(&autoAttackButton, 195, 110, 70, 20);
+    setBoundsAndApplyScaling(&autoReleaseButton, 285, 110, 70, 20);
+    setBoundsAndApplyScaling(&autoMakeupButton, 195, 135, 70, 20);
+    setBoundsAndApplyScaling(&lahButton, 285, 135, 70, 20);
+    setBoundsAndApplyScaling(&powerButton, 355, 30, 30, 30);
+    setBoundsAndApplyScaling(&meterbg, 175, 160, 210, 130);
+    setBoundsAndApplyScaling(&meter, 175, 160, 210, 130);
 }
 
 

@@ -1,8 +1,8 @@
 #pragma once
 #include <JuceHeader.h>
 #include "HayesCompressorAudioProcessor.h"
-#include "gui/include/LabeledSlider.h"
 #include "gui/include/Meter.h"
+#include "../../Common/LabeledSlider.h"
 #include "../../Common/BaseAudioProcessorEditor.h"
 #include "../../Common/CustomLookAndFeel.h"
 #include "../../Common/PresetBar.h"
@@ -39,11 +39,12 @@ private:
     juce::TextButton lahButton, autoAttackButton, autoReleaseButton, autoMakeupButton;
     juce::DrawableButton powerButton;
 
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> lahAttachment;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> autoAttackAttachment;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> autoReleaseAttachment;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> autoMakeupAttachment;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> powerAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> lahAttachment, autoAttackAttachment,
+                                                                          autoReleaseAttachment,
+                                                                          autoMakeupAttachment, powerAttachment;
+
+    static constexpr int defaultWidth = 400;
+    static constexpr int defaultHeight = 300;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(HayesCompressorAudioProcessorEditor)
 };
