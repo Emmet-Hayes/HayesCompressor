@@ -13,7 +13,7 @@ public:
         sliderLabel.setJustificationType(juce::Justification::centred);
         addAndMakeVisible(sliderLabel);
 
-        slider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+        slider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
         slider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 50, 20);
         addAndMakeVisible(slider);
     }
@@ -21,7 +21,7 @@ public:
     LabeledSlider(Component* parent) : slider(&sliderLabel)
     {
         addAndMakeVisible(slider);
-        slider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+        slider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
         slider.setPopupDisplayEnabled(true, true, parent, 0);
         slider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, true, 50, 20);
 
