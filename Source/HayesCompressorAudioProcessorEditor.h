@@ -43,8 +43,8 @@ private:
                                                                           autoReleaseAttachment,
                                                                           autoMakeupAttachment, powerAttachment;
 
-    static constexpr int defaultWidth = 400;
-    static constexpr int defaultHeight = 300;
+    static constexpr int defaultWidth  { 400 };
+    static constexpr int defaultHeight { 300 };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(HayesCompressorAudioProcessorEditor)
 };
