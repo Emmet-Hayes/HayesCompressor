@@ -12,16 +12,9 @@ HayesCompressorAudioProcessorEditor::HayesCompressorAudioProcessorEditor(HayesCo
 ,   attackLSlider(this), releaseLSlider(this), mixLSlider(this)
 ,   powerButton("powerButton", juce::DrawableButton::ButtonStyle::ImageOnButtonBackground)
 {
-    setLookAndFeel(&customLookAndFeel);
-    initWidgets();
     startTimerHz(60);
-    image = juce::ImageCache::getFromMemory(BinaryData::bg_file_jpg, BinaryData::bg_file_jpgSize);
-  
-    const auto ratio = static_cast<double> (defaultWidth) / defaultHeight;
-    setResizable(false, true);
-    getConstrainer()->setFixedAspectRatio(ratio);
-    getConstrainer()->setSizeLimits(defaultWidth, defaultHeight, defaultWidth * 2, defaultHeight * 2);
-    setSize(defaultWidth, defaultHeight);
+    setLookAndFeel(&customLookAndFeel);
+    addAllGUIComponents();
 }
 
 HayesCompressorAudioProcessorEditor::~HayesCompressorAudioProcessorEditor()
@@ -90,7 +83,7 @@ void HayesCompressorAudioProcessorEditor::timerCallback()
     }
 }
 
-void HayesCompressorAudioProcessorEditor::initWidgets()
+void HayesCompressorAudioProcessorEditor::addAllGUIComponents()
 {
     addAndMakeVisible(inGainLSlider);
     inGainLSlider.reset(processor.apvts, "inputgain");
@@ -166,6 +159,14 @@ void HayesCompressorAudioProcessorEditor::initWidgets()
     meter.setMode(Meter::Mode::GR);
     
     addAndMakeVisible(presetBar);
+    
+    image = juce::ImageCache::getFromMemory(BinaryData::bg_file_jpg, BinaryData::bg_file_jpgSize);
+  
+    const auto ratio = static_cast<double> (defaultWidth) / defaultHeight;
+    setResizable(false, true);
+    getConstrainer()->setFixedAspectRatio(ratio);
+    getConstrainer()->setSizeLimits(defaultWidth, defaultHeight, defaultWidth * 2, defaultHeight * 2);
+    setSize(defaultWidth, defaultHeight);
 }
 
 void HayesCompressorAudioProcessorEditor::setGUIState(bool powerState)

@@ -76,19 +76,6 @@ juce::AudioProcessorEditor* HayesCompressorAudioProcessor::createEditor()
     return new HayesCompressorAudioProcessorEditor(*this);
 }
 
-void HayesCompressorAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
-{
-    if (auto xml = apvts.state.createXml())
-        copyXmlToBinary(*xml, destData);
-}
-
-void HayesCompressorAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
-{
-    if (auto xml = getXmlFromBinary(data, sizeInBytes))
-        if (xml->hasTagName(apvts.state.getType()))
-            apvts.state = juce::ValueTree::fromXml(*xml);
-}
-
 
 void HayesCompressorAudioProcessor::parameterChanged(const juce::String& parameterID, float newValue)
 {

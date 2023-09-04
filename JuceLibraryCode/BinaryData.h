@@ -12,7 +12,7 @@ namespace BinaryData
     const int            bg_file_jpgSize = 101995;
 
     extern const char*   power_white_svg;
-    const int            power_white_svgSize = 2873;
+    const int            power_white_svgSize = 2984;
 
     extern const char*   JuliafontRegular_ttf;
     const int            JuliafontRegular_ttfSize = 15516;

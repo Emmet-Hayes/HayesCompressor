@@ -21,7 +21,7 @@ public:
     void timerCallback() override;
 
 private:
-    void initWidgets();
+    void addAllGUIComponents();
     void setGUIState(bool);
 
     CustomLookAndFeel customLookAndFeel;
