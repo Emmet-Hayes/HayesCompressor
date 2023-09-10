@@ -1,7 +1,7 @@
-// CompressorDisplay.h
 #pragma once
-#include <JuceHeader.h>
+
 #include "HayesCompressorAudioProcessor.h"
+
 
 class CompressorDisplay : public juce::Component, private juce::Timer
 {

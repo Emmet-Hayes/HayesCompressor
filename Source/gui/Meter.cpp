@@ -1,10 +1,10 @@
-#include "include/Meter.h"
 #include "../util/include/Constants.h"
+
+#include "include/Meter.h"
 
 
 Meter::Meter()
 {
-    //Init vars
     startAngle = static_cast<float>(5.0f / 3.0f * juce::MathConstants<float>::pi);
     endAngle = static_cast<float>(7.0f / 3.0f * juce::MathConstants<float>::pi);
     meterBg.prepare(startAngle, endAngle);

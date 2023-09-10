@@ -1,5 +1,7 @@
-#include "include/MeterBackground.h"
 #include "../util/include/Constants.h"
+
+#include "include/MeterBackground.h"
+
 
 MeterBackground::MeterBackground()
 {

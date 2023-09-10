@@ -1,10 +1,11 @@
 #pragma once
+
 #include <JuceHeader.h>
+
 
 class MeterBackground : public juce::Component
 {
 public:
-
     MeterBackground();
     void prepare(const float& s, const float& e);
     void paint(juce::Graphics& g) override;

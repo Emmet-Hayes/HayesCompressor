@@ -1,8 +1,10 @@
+#include "../../Common/Utilities.h"
+
+#include "util/include/Constants.h"
+
 #include "HayesCompressorAudioProcessor.h"
 #include "HayesCompressorAudioProcessorEditor.h"
-#include "../../Common/Utilities.h"
-#include "util/include/Constants.h"
-#include <JuceHeader.h>
+
 
 HayesCompressorAudioProcessor::HayesCompressorAudioProcessor()
 :   BaseAudioProcessor(createParameterLayout())

@@ -1,7 +1,7 @@
+#include "util/include/Constants.h"
 
 #include "HayesCompressorAudioProcessor.h"
 #include "HayesCompressorAudioProcessorEditor.h"
-#include "util/include/Constants.h"
 
 
 HayesCompressorAudioProcessorEditor::HayesCompressorAudioProcessorEditor(HayesCompressorAudioProcessor& p)

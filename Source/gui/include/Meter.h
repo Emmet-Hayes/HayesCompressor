@@ -1,7 +1,10 @@
 #pragma once
+
 #include <JuceHeader.h>
+
 #include "MeterNeedle.h"
 #include "MeterBackground.h"
+
 
 class Meter : public juce::Component
 {

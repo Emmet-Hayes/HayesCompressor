@@ -1,5 +1,7 @@
-#include "include/MeterNeedle.h"
 #include "../util/include/Constants.h"
+
+#include "include/MeterNeedle.h"
+
 
 MeterNeedle::MeterNeedle()
 {

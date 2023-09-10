@@ -1,8 +1,10 @@
 #pragma once
-#include <JuceHeader.h>
+
 #include "../../Common/BaseAudioProcessor.h"
+
 #include "dsp/include/Compressor.h"
 #include "dsp/include/LevelEnvelopeFollower.h"
+
 
 class HayesCompressorAudioProcessor   : public BaseAudioProcessor
                                      , public juce::AudioProcessorValueTreeState::Listener

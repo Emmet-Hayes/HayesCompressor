@@ -1,11 +1,14 @@
 #pragma once
-#include <JuceHeader.h>
-#include "HayesCompressorAudioProcessor.h"
-#include "gui/include/Meter.h"
+
 #include "../../Common/LabeledSlider.h"
 #include "../../Common/BaseAudioProcessorEditor.h"
 #include "../../Common/CustomLookAndFeel.h"
 #include "../../Common/PresetBar.h"
+
+#include "gui/include/Meter.h"
+
+#include "HayesCompressorAudioProcessor.h"
+
 
 class HayesCompressorAudioProcessorEditor : public BaseAudioProcessorEditor
                                           , public juce::Button::Listener
